@@ -1,7 +1,12 @@
+const glob = require('glob');
+
 exports.config = {
     runner: 'local',
+
     specs: ['./test/features/*.feature'],
+
     maxInstances: 4,
+
     capabilities: [
         {
             maxInstances: 2,
@@ -14,10 +19,13 @@ exports.config = {
     ],
 
     logLevel: 'info',
+
     framework: 'cucumber',
+
     reporters: ['spec'],
+
     cucumberOpts: {
-        require: ['./test/steps-definitions/login.steps.js'],
+        require: glob.sync('./test/step-definitions/*.steps.js'),
         timeout: 60000
     }
 };
