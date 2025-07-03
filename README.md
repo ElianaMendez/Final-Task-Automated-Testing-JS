@@ -1,4 +1,3 @@
-// === README.md ===
 # SauceDemo Login Automation with WebDriverIO + Cucumber
 
 ## Description
