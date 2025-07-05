@@ -17,4 +17,4 @@ Feature: SauceDemo Login Testing
         When I enter "stardard_user" in the username field
         And I enter "secret_sauce" in the password field
         And I click the login button
-        Then I should see the dashboard title "Swag Lab"
+        Then I should see the dashboard title "Swag Labs"
