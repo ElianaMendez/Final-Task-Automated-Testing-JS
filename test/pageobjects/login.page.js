@@ -9,11 +9,11 @@ class LoginPage extends Page {
     open() { return super.open(''); }
 
     async login(username, password) {
-        if (username !== undefined) await this.username.setValue('standard_user');
-        if (password !== undefined) await this.password.setValue('secret_sauce');
+        if (username !== undefined) await this.username.setValue(username);
+        if (password !== undefined) await this.password.setValue(password);
         await this.loginBtn.click();
     }
-    
+
     async clearFields() {
         await this.username.clearValue();
         await this.password.clearValue();
