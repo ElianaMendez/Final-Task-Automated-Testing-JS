@@ -14,9 +14,22 @@ class LoginPage extends Page {
         await this.loginBtn.click();
     }
 
-    async clearFields() {
-        await this.username.clearValue();
-        await this.password.clearValue();
+    async clearFieldUsername() {
+        await this.username.click();
+        const value = await this.username.getValue()
+        const valueLength = value.length;
+        for (let i = 0; i < valueLength; i++) {
+            await this.username.addValue('\uE003');
+        }
+    }
+
+    async clearFieldPassword() {
+        await this.password.click();
+        const value = await this.password.getValue()
+        const valueLength = value.length;
+        for (let i = 0; i < valueLength; i++) {
+            await this.password.addValue('\uE003');
+        }
     }
 }
 

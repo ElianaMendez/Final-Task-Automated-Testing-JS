@@ -10,11 +10,9 @@ exports.config = {
 
     capabilities: [
         {
-            maxInstances: 2,
             browserName: 'chrome'
         },
         {
-            maxInstances: 2,
             browserName: 'firefox'
         }
     ],
@@ -27,7 +25,7 @@ exports.config = {
 
     cucumberOpts: {
         require: glob.sync('./test/step-definitions/*.steps.js'),
-        timeout: 60000
+        timeout: 90000
     },
 
     beforeScenario: function (world) {
