@@ -6,13 +6,15 @@ exports.config = {
 
     specs: ['./test/features/*.feature'],
 
-    maxInstances: 4,
+    maxInstances: 6,
 
     capabilities: [
         {
+            maxInstances: 3, // chrome concurrency
             browserName: 'chrome'
         },
         {
+            maxInstances: 3, // firefox concurrency
             browserName: 'firefox'
         }
     ],
