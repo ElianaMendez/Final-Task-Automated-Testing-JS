@@ -23,7 +23,12 @@ exports.config = {
 
     framework: 'cucumber',
 
-    reporters: ['spec'],
+    reporters: ['spec', ['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: false,
+        disableWebdriverScreenshotsReporting: false,
+    }]],
+
 
     cucumberOpts: {
         require: glob.sync('./test/step-definitions/*.steps.js'),
@@ -40,8 +45,9 @@ exports.config = {
     },
 
 
-    afterStep: async function (step, context, { error }) {
+    afterStep: async function (step, context, { error, result, duration, passed, retries }) {
         if (error) {
+            await browser.takeScreenshot();
             const fs = require('fs');
             const path = require('path');
 
