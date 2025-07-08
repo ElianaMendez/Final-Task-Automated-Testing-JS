@@ -1,39 +1,66 @@
-# SauceDemo Login Automation with WebDriverIO + Cucumber
+# 🚀 Final Task Automated Testing - JS
 
-## Description
+## 📄 Description
+
 This project tests the login functionality of [SauceDemo](https://www.saucedemo.com/) using:
+
 - **WebDriverIO + Cucumber (BDD)**
 - **Chrome & Firefox support**
-- **Parallel execution**
+- **Parallel execution (6 instances)**
 - **CSS Locators + Page Object Model**
 - **Assertions with WebDriverIO**
-- **Logger included via WDIO**
+- **Screenshots on failure**
+- **Allure Reporting**
+- **Clean structured logs**
+- **Data Provider with Scenario Outline (parametrization)**
 
-## Test Cases
-- **UC-1:** Login with empty credentials → "Username is required"
-- **UC-2:** Login with empty password → "Password is required"
-- **UC-3:** Valid login → dashboard title "Swag Labs"
+## 📦 Installation
 
-## Setup
 ```bash
-git clone <repo-url>
+git clone https://github.com/ElianaMendez/Final-Task-Automated-Testing-JS.git
+cd Final-Task-Automated-Testing-JS
 npm install
 ```
 
-## Run Tests
-- Run all tests in parallel:
+## 🧪 Run Tests
+
 ```bash
-npx wdio run wdio.conf.js
+npm test
 ```
 
-## Folder Structure
+## 📊 Generate Allure Report
+
+```bash
+npm run allure:generate
+npm run allure:open
 ```
-/test
-  /features
-    login.feature
-  /pageobjects
-    login.page.js
-    page.js
-  /step-definitions
-    login.steps.js
-```
+
+## 📂 Structure
+
+- `test/features`: Feature files
+- `test/step-definitions`: Step definitions
+- `test/pageobjects`: Page Object Model
+- `errorShots`: Screenshots on failure
+- `allure-results`: Allure raw data
+- `allure-report`: Generated reports
+
+## ✨ Features Tested
+
+✅ UC-1: Login empty credentials\
+✅ UC-2: Login empty password\
+✅ UC-3: Successful login (Scenario Outline applied for parametrization)
+
+## 🛠️ Stack
+
+- WebdriverIO v9
+- Cucumber
+- Allure Reporter
+- Node.js v18
+- Page Object Model
+
+## 📞 Contact
+
+Eliana Méndez\
+[GitHub](https://github.com/ElianaMendez)
+
+---
