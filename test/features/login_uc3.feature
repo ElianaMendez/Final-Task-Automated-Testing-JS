@@ -1,10 +1,15 @@
 Feature: UC-3 Successful Login
 
-    Scenario: UC - 3 Login form with credentials by passing Username & Password
+    Scenario Outline: UC - 3 Login with multiple valid credentials
         Given I am on the SauceDemo login page
-        When I enter "standard_user" in the username field
-        And I enter "secret_sauce" in the password field
+        When I enter "<username>" in the username field
+        And I enter "<password>" in the password field
         And I click the login button
         Then I should see the dashboard title "Swag Labs"
 
+        Examples:
+            | username      | password     |
+            | standard_user | secret_sauce |
+            | visual_user   | secret_sauce |
+            | problem_user  | secret_sauce |
 
