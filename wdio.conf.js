@@ -1,5 +1,20 @@
 const glob = require('glob');
+const fs = require('fs');
+const path = require('path');
+
 let currentFeatureName = 'unknownFeature';
+
+function logStep(message) {
+    console.log(`[STEP] ${message}`);
+}
+
+function logPass(message) {
+    console.log(`[PASS] ${message}`);
+}
+
+function logFail(message) {
+    console.log(`[FAIL] ${message}`);
+}
 
 exports.config = {
     runner: 'local',
@@ -29,7 +44,6 @@ exports.config = {
         disableWebdriverScreenshotsReporting: false,
     }]],
 
-
     cucumberOpts: {
         require: glob.sync('./test/step-definitions/*.steps.js'),
         timeout: 90000
@@ -37,32 +51,31 @@ exports.config = {
 
     beforeScenario: function (world) {
         if (world && world.pickle && world.pickle.uri) {
-            const path = require('path');
             const featurePath = world.pickle.uri;
             currentFeatureName = path.basename(featurePath, '.feature').replace(/[^a-zA-Z0-9]/g, '_');
-            console.log(`🟩 Captured feature name: ${currentFeatureName}`);
+            logStep(`Captured feature name: ${currentFeatureName}`);
         }
     },
 
-
-    afterStep: async function (step, context, { error, result, duration, passed, retries }) {
+    afterStep: async function (step, context, { error }) {
         if (error) {
-            await browser.takeScreenshot();
-            const fs = require('fs');
-            const path = require('path');
+            try {
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const stepName = step.text.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 50);
+                const dir = path.join(__dirname, 'errorShots', currentFeatureName);
 
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const stepName = step.text.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 50);
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
 
-            const dir = path.join(__dirname, 'errorShots', currentFeatureName);
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true });
+                const filepath = path.join(dir, `${timestamp}_${currentFeatureName}_${stepName}.png`);
+                await browser.saveScreenshot(filepath);
+                logFail(`Step failed: ${stepName}. Screenshot saved at: ${filepath}`);
+            } catch (hookError) {
+                logFail(`Error in afterStep while taking screenshot: ${hookError.stack || hookError}`);
             }
-            const filepath = path.join(dir, `${timestamp}_${currentFeatureName}_${stepName}.png`);
-            await browser.saveScreenshot(filepath);
-            console.log(`❌ Screenshot captured: ${filepath}`);
+        } else {
+            logPass(`Step passed: ${step.text}`);
         }
     },
-
-
 };
